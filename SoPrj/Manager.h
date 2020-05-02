@@ -2,12 +2,16 @@
 
 #include <iostream>
 #include <string>
+#include <cstring>
 #include <fstream>
 #include "Date.h"
 #include "FileIO.h"
 #include <algorithm>
+#if defined(_WIN64)
 #include <Windows.h>
 #include <conio.h>
+#else
+#endif
 using namespace std;
 
 class Manager {

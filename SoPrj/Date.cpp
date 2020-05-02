@@ -1,7 +1,9 @@
 #include "Date.h"
 #include <iostream>
 #include <cstring>
+#if defined(_WIN64)
 #include <Windows.h>
+#endif
 
 Date::Date() {
     Date(0,0,0);
@@ -38,7 +40,7 @@ void  Date::showSch(string specifier){
         string week;
         cout << str_year<<"."<<str_month<<"."<<str_day<<" ";
         switch (this->day) {
-        case 1: week = "SUN"; break;
+        case 1: week = "\033[22;31mSUN\033[22;0m"; break;
         case 2: week = "MON"; break;
         case 3: week = "TUE"; break;
         case 4: week = "WED"; break;
@@ -58,7 +60,7 @@ void  Date::showSch(string specifier){
         string week;
         cout << str_year<<"."<<str_month<<"."<<str_day<<" ";
         switch(this->day){
-            case 1: week = "SUN"; break;
+            case 1: week = "\033[22;31mSUN\033[22;0m"; break;
             case 2: week = "MON"; break;
             case 3: week = "TUE"; break;
             case 4: week = "WED"; break;
@@ -78,7 +80,7 @@ void  Date::showSch(string specifier){
         string week;
         cout << str_year<<"."<<str_month<<"."<<str_day<<" ";
         switch(this->day){
-            case 1: week = "SUN"; break;
+            case 1: week = "\033[22;31mSUN\033[22;0m"; break;
             case 2: week = "MON"; break;
             case 3: week = "TUE"; break;
             case 4: week = "WED"; break;
@@ -194,7 +196,9 @@ string Date::getDayNormFormat() {
 }
 
 void Date::setColor(int color){
+    #if defined(_WIN64)
     CONSOLE_SCREEN_BUFFER_INFO info;
     GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &info);
     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), (info.wAttributes&0xf0) | (color&0xf));
+    #endif
 } 

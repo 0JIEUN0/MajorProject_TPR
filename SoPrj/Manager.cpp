@@ -1,5 +1,26 @@
 #include "Manager.h"
 
+#include <termios.h>
+int _getch() { 
+    int ch; 
+    struct termios old; 
+    struct termios current; 
+    
+    // Get old Standard Input setting
+    tcgetattr(0, &old); 
+    // Back up current setting[copy to current]
+    current = old; 
+    
+    // Modify current Standard input setting[Without echoing char]
+    current.c_lflag &= ~ICANON; 
+    current.c_lflag &= ~ECHO; 
+
+    tcsetattr(0, TCSANOW, &current); 
+    ch = getchar(); 
+    tcsetattr(0, TCSANOW, &old); 
+    return ch; 
+}
+
 Manager::Manager() {
     int count = 0;
     this->month_last[0] = 31;
